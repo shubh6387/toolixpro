@@ -1,1 +1,172 @@
-/* You can add global styles to this file, and also import other style files */
+// Global stylesheet
+
+// Bootstrap custom variables overrides
+$primary: #6366f1;
+$font-family-sans-serif: 'Inter', sans-serif;
+$enable-dark-mode: false; // We will use our own custom data-theme dark mode for finer control
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+// Global Theme Variables
+:root {
+  --font-title: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  // Theme Light Mode
+  &, &[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: #e2e8f0;
+    --accent-color: #4f46e5;
+    --accent-hover: #4338ca;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+    --code-bg: #f1f5f9;
+    --code-text: #0f172a;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --header-height: 72px;
+    --glow-opacity: 0.03;
+    --badge-bg: #e0e7ff;
+    --badge-text: #3730a3;
+    --accordion-icon-invert: 0;
+  }
+
+  // Theme Dark Mode
+  &[data-theme="dark"] {
+    --bg-primary: #090d16;
+    --bg-secondary: #0f172a;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #1e293b;
+    --accent-color: #6366f1;
+    --accent-hover: #818cf8;
+    --card-bg: rgba(15, 23, 42, 0.6);
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+    --glass-bg: rgba(9, 13, 22, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glow-opacity: 0.15;
+    --badge-bg: #312e81;
+    --badge-text: #e0e7ff;
+    --accordion-icon-invert: 1;
+  }
+}
+
+// Global Styles
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+// Premium Card Styling
+.premium-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+  }
+}
+
+// Glassmorphism Header
+.glass-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1100; // Increased to stack on top of other body items
+  height: var(--header-height);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+// Override Bootstrap text and background helpers for dark mode compatibility
+.text-body {
+  color: var(--text-primary) !important;
+}
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+.text-dark {
+  color: var(--text-primary) !important;
+}
+.bg-body-tertiary {
+  background-color: var(--code-bg) !important;
+}
+
+// Dynamic theme accordion button states
+.accordion-button {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  
+  &::after {
+    filter: brightness(0) invert(var(--accordion-icon-invert));
+  }
+  
+  &:not(.collapsed) {
+    background-color: var(--code-bg) !important;
+    color: var(--accent-color) !important;
+  }
+}
+
+// Global Form Controls Override for Light/Dark Theme Compatibility
+.form-control, textarea, input {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-primary) !important;
+  border-color: var(--border-color) !important;
+  
+  &::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.6;
+  }
+  
+  &:focus {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--accent-color) !important;
+  }
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
