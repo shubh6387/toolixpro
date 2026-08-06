@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Boost & Growth Hub | Organic Marketing Optimizer</title>
+  <!-- Bootstrap CSS for grid utilities only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap-grid.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="bi bi-rocket-takeoff-fill"></i>
+        </div>
+        <div class="brand-name">BoostHub</div>
+      </div>
+      
+      <nav class="nav-menu">
+        <div class="nav-item active" data-target="dashboard-tab">
+          <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-target="campaigns-tab">
+          <i class="bi bi-megaphone"></i>
+          <span>Launch Campaign</span>
+        </div>
+        <div class="nav-item" data-target="earn-tab">
+          <i class="bi bi-coin"></i>
+          <span>Earn Credits</span>
+        </div>
+        <div class="nav-item" data-target="seo-tab">
+          <i class="bi bi-magic"></i>
+          <span>AI SEO Optimizer</span>
+        </div>
+        <div class="nav-item" data-target="audit-tab">
+          <i class="bi bi-shield-check"></i>
+          <span>SEO Auditor</span>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="user-credits-sidebar">
+          <span class="credits-label">My Credits</span>
+          <span class="credits-val">
+            <i class="bi bi-database-fill text-warning"></i>
+            <span id="header-credit-val">2,500</span>
+          </span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Panel -->
+    <main class="main-content">
+      
+      <!-- Top Header Bar -->
+      <header class="top-bar">
+        <div class="page-title">
+          <h2 id="current-page-title">Dashboard Overview</h2>
+        </div>
+        
+        <div class="top-bar-actions">
+          <div class="user-profile">
+            <span class="avatar">ST</span>
+            <span class="fw-semibold">Shubham Tiwari</span>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Content Body -->
+      <div class="content-body">
+        
+        <!-- ================= DASHBOARD TAB ================= -->
+        <section id="dashboard-tab" class="tab-content active">
+          <div class="stats-grid">
+            
+            <div class="stat-card youtube premium-card">
+              <div class="stat-header">
+                <span>YouTube Subs</span>
+                <i class="bi bi-youtube stat-icon"></i>
+              </div>
+              <div class="stat-value" id="stat-yt-subs">1,240</div>
+              <div class="stat-change up">
+                <i class="bi bi-arrow-up-right"></i>
+                <span>+12.4% organic boost</span>
+              </div>
+            </div>
+            
+            <div class="stat-card youtube premium-card">
+              <div class="stat-header">
+                <span>YouTube Views</span>
+                <i class="bi bi-eye stat-icon"></i>
+              </div>
+              <div class="stat-value" id="stat-yt-views">45,820</div>
+              <div class="stat-change up">
+                <i class="bi bi-arrow-up-right"></i>
+                <span>+8.2% views index</span>
+              </div>
+            </div>
+            
+            <div class="stat-card instagram premium-card">
+              <div class="stat-header">
+                <span>Instagram Followers</span>
+                <i class="bi bi-instagram stat-icon"></i>
+              </div>
+              <div class="stat-value" id="stat-ig-followers">8,450</div>
+              <div class="stat-change up">
+                <i class="bi bi-arrow-up-right"></i>
+                <span>+24.1% reach velocity</span>
+              </div>
+            </div>
+            
+            <div class="stat-card credits-stat premium-card">
+              <div class="stat-header">
+                <span>Total Reach</span>
+                <i class="bi bi-graph-up-arrow stat-icon"></i>
+              </div>
+              <div class="stat-value" id="stat-total-reach">55,510</div>
+              <div class="stat-change up">
+                <i class="bi bi-shield-check"></i>
+                <span>All channels online</span>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="dashboard-grid">
+            <!-- Left Side: Connect Accounts & Info -->
+            <div class="premium-card panel-card">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <i class="bi bi-plus-circle text-primary"></i>
+                  <span>Connect Social Profile</span>
+                </div>
+              </div>
+              
+              <form id="connect-account-form">
+                <div class="platform-toggler">
+                  <button type="button" class="platform-btn active youtube" id="connect-platform-yt" onclick="toggleConnectPlatform('youtube')">
+                    <i class="bi bi-youtube"></i> YouTube
+                  </button>
+                  <button type="button" class="platform-btn instagram" id="connect-platform-ig" onclick="toggleConnectPlatform('instagram')">
+                    <i class="bi bi-instagram"></i> Instagram
+                  </button>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label" id="connect-label">Channel URL or Username</label>
+                  <div class="input-icon-wrapper">
+                    <i class="bi bi-link-45deg" id="connect-icon"></i>
+                    <input type="text" class="form-control" id="connect-url-input" placeholder="e.g. https://youtube.com/@mychannel" required>
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="btn-connect-account">
+                  <i class="bi bi-link"></i> Link Account
+                </button>
+              </form>
+              
+              <div class="mt-4">
+                <h6 class="form-label mb-2">Connected Accounts</h6>
+                <div id="connected-accounts-list" class="d-flex flex-column gap-2">
+                  <!-- JS Dynamic Content -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Side: Virtual Economy Stats -->
+            <div class="premium-card panel-card">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <i class="bi bi-info-circle text-info"></i>
+                  <span>SMM Growth Simulation</span>
+                </div>
+              </div>
+              <div class="fs-sm text-secondary">
+                <p class="mb-3">This panel simulates target delivery rates using organic SMM mechanics.</p>
+                <div class="mb-2 d-flex justify-between">
+                  <span>View Delivery Cost:</span>
+                  <span class="fw-bold text-success">1 credit/view</span>
+                </div>
+                <div class="mb-2 d-flex justify-between">
+                  <span>Like Delivery Cost:</span>
+                  <span class="fw-bold text-success">2 credits/like</span>
+                </div>
+                <div class="mb-2 d-flex justify-between">
+                  <span>Subscriber Cost:</span>
+                  <span class="fw-bold text-success">5 credits/sub</span>
+                </div>
+                <div class="mb-3 d-flex justify-between">
+                  <span>Follower Cost:</span>
+                  <span class="fw-bold text-success">5 credits/follower</span>
+                </div>
+                <hr class="opacity-25 mb-3" style="border-color: var(--border-color)">
+                <div class="text-center">
+                  <i class="bi bi-shield-lock-fill fs-xl text-primary mb-2"></i>
+                  <p class="fs-sm text-muted">Credits are earned inside the community mutual exchange portal.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ================= CAMPAIGNS TAB ================= -->
+        <section id="campaigns-tab" class="tab-content">
+          <div class="row g-4">
+            
+            <!-- Create Campaign Form -->
+            <div class="col-lg-5">
+              <div class="premium-card panel-card">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <i class="bi bi-plus-square text-primary"></i>
+                    <span>Configure Growth Boost</span>
+                  </div>
+                </div>
+                
+                <form id="campaign-form">
+                  <div class="platform-toggler">
+                    <button type="button" class="platform-btn active youtube" id="camp-platform-yt" onclick="toggleCampPlatform('youtube')">
+                      <i class="bi bi-youtube"></i> YouTube
+                    </button>
+                    <button type="button" class="platform-btn instagram" id="camp-platform-ig" onclick="toggleCampPlatform('instagram')">
+                      <i class="bi bi-instagram"></i> Instagram
+                    </button>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Service Type</label>
+                    <select class="form-control form-select" id="camp-service" onchange="calculateCost()" required>
+                      <option value="views" selected>Organic Views</option>
+                      <option value="subscribers">Subscribers</option>
+                      <option value="likes">Video Likes</option>
+                      <option value="comments">Custom Comments</option>
+                      <option value="shares">Video Shares</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label" id="camp-url-label">Video URL</label>
+                    <div class="input-icon-wrapper">
+                      <i class="bi bi-link-45deg"></i>
+                      <input type="url" class="form-control" id="camp-target-url" placeholder="https://youtube.com/watch?v=..." required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Target Quantity: <span id="quantity-display" class="text-primary fw-bold">500</span></label>
+                    <div class="range-slider-container">
+                      <input type="range" class="range-slider" id="camp-quantity" min="50" max="5000" step="50" value="500" oninput="updateQuantity(this.value)">
+                      <div class="slider-val-box">
+                        <span>50</span>
+                        <span>5,000</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Delivery Speed</label>
+                    <select class="form-control form-select" id="camp-speed">
+                      <option value="gradual">Organic & Gradual (Recommended)</option>
+                      <option value="instant">Accelerated Boost</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-4 p-3 rounded bg-tertiary border border-color d-flex justify-between align-center">
+                    <div>
+                      <span class="fs-sm text-secondary">Est. Campaign Cost:</span>
+                      <div class="fs-lg fw-bold text-warning"><i class="bi bi-database-fill me-1"></i><span id="camp-total-cost">500</span> Credits</div>
+                    </div>
+                    <div>
+                      <span class="fs-sm text-secondary">Wallet Balance:</span>
+                      <div class="fs-sm fw-semibold" id="camp-wallet-balance">2,500 Cr</div>
+                    </div>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-rocket-takeoff"></i> Launch Growth Booster
+                  </button>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Active Campaigns List -->
+            <div class="col-lg-7">
+              <div class="premium-card panel-card">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <i class="bi bi-arrow-repeat text-success"></i>
+                    <span>Live Campaigns Status</span>
+                  </div>
+                </div>
+                
+                <div class="table-responsive">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Platform</th>
+                        <th>Target Link</th>
+                        <th>Service</th>
+                        <th>Progress</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="campaigns-table-body">
+                      <!-- JS Dynamic Data -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+        
+        <!-- ================= EARN CREDITS TAB ================= -->
+        <section id="earn-tab" class="tab-content">
+          <div class="mb-4">
+            <h5 class="fw-bold mb-1">Mutual Traffic Exchange</h5>
+            <p class="text-secondary fs-sm">Earn virtual credits by interacting with these community submissions. Credits are added to your wallet instantly upon verification.</p>
+          </div>
+          
+          <div class="task-grid" id="tasks-container">
+            <!-- Dynamic task cards loaded via JS -->
+          </div>
+        </section>
+        
+        <!-- ================= AI SEO OPTIMIZER TAB ================= -->
+        <section id="seo-tab" class="tab-content">
+          <div class="seo-grid">
+            
+            <!-- SEO Input Config -->
+            <div class="premium-card panel-card">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <i class="bi bi-lightbulb-fill text-warning"></i>
+                  <span>SEO Generator Parameters</span>
+                </div>
+              </div>
+              
+              <form id="seo-form">
+                <div class="platform-toggler">
+                  <button type="button" class="platform-btn active youtube" id="seo-platform-yt" onclick="toggleSeoPlatform('youtube')">
+                    <i class="bi bi-youtube"></i> YouTube
+                  </button>
+                  <button type="button" class="platform-btn instagram" id="seo-platform-ig" onclick="toggleSeoPlatform('instagram')">
+                    <i class="bi bi-instagram"></i> Instagram
+                  </button>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label" id="seo-topic-label">Video Core Topic / Keywords</label>
+                  <div class="input-icon-wrapper">
+                    <i class="bi bi-search"></i>
+                    <input type="text" class="form-control" id="seo-topic" placeholder="e.g. Python tutorial for beginners, travel vlog" required>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Target Audience Location</label>
+                  <select class="form-control form-select" id="seo-location">
+                    <option value="global" selected>Global Audience</option>
+                    <option value="india">India (Hindi/English)</option>
+                    <option value="us">United States (English)</option>
+                  </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-cpu"></i> Generate SEO Metadata
+                </button>
+              </form>
+            </div>
+            
+            <!-- SEO Output Results -->
+            <div class="premium-card seo-result-card" id="seo-results-panel">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <i class="bi bi-bar-chart-steps text-info"></i>
+                  <span>Optimized Recommendations</span>
+                </div>
+              </div>
+              
+              <!-- Empty state before generation -->
+              <div class="empty-state" id="seo-empty-state">
+                <i class="bi bi-journal-code"></i>
+                <p>Configure and generate optimization packages for tags, descriptions, and high CTR titles.</p>
+              </div>
+              
+              <!-- Results container -->
+              <div id="seo-results-container" class="d-none flex-column gap-3">
+                <div class="result-item">
+                  <div class="result-header">
+                    <span>High Click-Through-Rate (CTR) Titles</span>
+                    <button class="btn-copy" onclick="copyToClipboard('seo-title-val')" title="Copy Title"><i class="bi bi-copy"></i></button>
+                  </div>
+                  <div class="result-body fw-bold text-success" id="seo-title-val"></div>
+                </div>
+                
+                <div class="result-item">
+                  <div class="result-header">
+                    <span>High Retention Video Description Outline</span>
+                    <button class="btn-copy" onclick="copyToClipboard('seo-desc-val')" title="Copy Description"><i class="bi bi-copy"></i></button>
+                  </div>
+                  <div class="result-body fs-sm text-secondary" id="seo-desc-val"></div>
+                </div>
+                
+                <div class="result-item">
+                  <div class="result-header">
+                    <span id="seo-tag-label">Algorithmic Search Keywords</span>
+                    <button class="btn-copy" onclick="copyToClipboard('seo-tags-val', true)" title="Copy Tags"><i class="bi bi-copy"></i></button>
+                  </div>
+                  <div class="tag-list" id="seo-tags-val"></div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </section>
+
+        <!-- ================= SEO AUDITOR TAB ================= -->
+        <section id="audit-tab" class="tab-content">
+          <div class="row g-4">
+            
+            <!-- Audit Setup Panel -->
+            <div class="col-lg-5">
+              <div class="premium-card panel-card">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <i class="bi bi-shield-check text-primary"></i>
+                    <span>SEO Audit Parameters</span>
+                  </div>
+                </div>
+                
+                <div class="platform-toggler">
+                  <button type="button" class="platform-btn active youtube" id="audit-type-channel" onclick="toggleAuditType('channel')">
+                    <i class="bi bi-person-video"></i> Channel Audit
+                  </button>
+                  <button type="button" class="platform-btn instagram" id="audit-type-video" onclick="toggleAuditType('video')">
+                    <i class="bi bi-play-btn"></i> Video Audit
+                  </button>
+                </div>
+                
+                <!-- Channel Audit Form -->
+                <form id="channel-audit-form" class="audit-form-element">
+                  <div class="form-group">
+                    <label class="form-label">Channel URL or Handle</label>
+                    <div class="input-icon-wrapper">
+                      <i class="bi bi-youtube text-danger"></i>
+                      <input type="text" class="form-control" id="audit-channel-url" placeholder="e.g. @mychannel or channel link" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Primary Channel Niche</label>
+                    <select class="form-control form-select" id="audit-channel-niche">
+                      <option value="cartoons" selected>Kids Cartoons & Animations</option>
+                      <option value="gaming">Gaming & Walkthroughs</option>
+                      <option value="tech">Tech & Reviews</option>
+                      <option value="cooking">Cooking & Food</option>
+                      <option value="vlogs">Vlog & Travel</option>
+                    </select>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i> Audit Channel Branding
+                  </button>
+                </form>
+                
+                <!-- Video Audit Form -->
+                <form id="video-audit-form" class="audit-form-element d-none">
+                  <div class="form-group">
+                    <label class="form-label">YouTube Video URL</label>
+                    <div class="input-icon-wrapper">
+                      <i class="bi bi-link-45deg"></i>
+                      <input type="url" class="form-control" id="audit-video-url" placeholder="https://youtube.com/watch?v=..." required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Video Title</label>
+                    <input type="text" class="form-control" id="audit-video-title" placeholder="Enter your current video title" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Video Description</label>
+                    <textarea class="form-control" id="audit-video-desc" rows="4" placeholder="Enter video description..." required></textarea>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Video Tags (Comma-separated)</label>
+                    <input type="text" class="form-control" id="audit-video-tags" placeholder="tag1, tag2, tag3...">
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-cpu"></i> Analyze Video Metadata
+                  </button>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Audit Results Panel -->
+            <div class="col-lg-7">
+              <div class="premium-card panel-card" style="min-height: 480px;">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <i class="bi bi-bar-chart-line text-info"></i>
+                    <span>Audit Diagnostic Results</span>
+                  </div>
+                </div>
+                
+                <!-- Empty State -->
+                <div class="empty-state" id="audit-empty-state">
+                  <i class="bi bi-heart-pulse"></i>
+                  <p>Choose an audit type, enter details, and hit Analyze to diagnose SEO health issues instantly.</p>
+                </div>
+                
+                <!-- Results Data -->
+                <div id="audit-results-container" class="d-none">
+                  <div class="d-flex align-center justify-between mb-4 p-3 rounded bg-tertiary border border-color">
+                    <div class="d-flex align-center gap-3">
+                      <div class="stat-value text-primary m-0" id="audit-score-val" style="font-size: 2.5rem; line-height: 1;">85</div>
+                      <div>
+                        <div class="fw-bold fs-lg">SEO Score</div>
+                        <div class="fs-sm text-secondary" id="audit-grade-text">Grade: B+ (Good)</div>
+                      </div>
+                    </div>
+                    <div id="audit-thumbnail-preview" class="d-none" style="width: 120px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+                      <!-- Youtube Thumbnail Preview -->
+                    </div>
+                  </div>
+                  
+                  <h6 class="form-label mb-2">Detailed Checklist</h6>
+                  <div id="audit-checklist-list" class="d-flex flex-column gap-3 mb-4">
+                    <!-- Dynamic audit checklist -->
+                  </div>
+                  
+                  <div class="p-3 rounded bg-tertiary border border-color" style="border-left: 5px solid var(--color-primary);">
+                    <h6 class="fw-bold mb-1 text-primary"><i class="bi bi-lightbulb"></i> Actionable Growth Advice</h6>
+                    <p class="fs-sm text-secondary m-0 lh-base" id="audit-advice-text"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+        
+      </div>
+    </main>
+    
+  </div>
+
+  <!-- BROWSER SIMULATOR MODAL (Exchange Task) -->
+  <div class="modal-overlay" id="task-modal">
+    <div class="modal-container premium-card">
+      <div class="modal-header">
+        <div class="browser-header-dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="browser-address-bar" id="browser-address">https://youtube.com/watch?v=mock_video</div>
+        <button class="modal-close" onclick="closeTaskModal()">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="sandbox-emulator" id="emulator-frame">
+          <!-- Dynamically populated video thumbnail or instagram card -->
+        </div>
+        
+        <div class="d-flex flex-column align-center mt-3 gap-2">
+          <h5 class="fw-bold m-0" id="task-modal-title">Watch the Video</h5>
+          <p class="text-secondary fs-sm m-0">To confirm your reward, interact with the emulator frame below.</p>
+          
+          <div class="d-flex gap-2 w-full mt-3 justify-between align-center">
+            <button class="btn btn-secondary" onclick="closeTaskModal()" style="width: auto;">Cancel</button>
+            <button class="btn btn-success" id="verify-task-btn" disabled style="width: auto; flex-grow: 1;">
+              <i class="bi bi-shield-check"></i> Verify & Earn Credits
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Toast Notification Container -->
+  <div class="toast-container" id="toast-root"></div>
+
+  <!-- Application Logic JS -->
+  <script src="app.js"></script>
+</body>
+</html>
