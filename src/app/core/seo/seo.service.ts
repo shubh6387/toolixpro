@@ -13,9 +13,10 @@ export class SeoService {
   private isBrowser = isPlatformBrowser(this.platformId);
 
   private readonly SITE_NAME = 'ToolixPro';
+  private readonly BASE_URL = 'https://toolixpro.vercel.app';
   private readonly DEFAULT_TITLE = 'ToolixPro - 100+ Free Online Developer Tools';
-  private readonly DEFAULT_DESCRIPTION = 'Free, client-side, fast developer utilities: JSON Formatter, JWT Decoder, Password Generator, Regex Tester, Base64 Encoder/Decoder, and more.';
-  private readonly DEFAULT_KEYWORDS = 'developer tools, online formatter, jwt decoder, regex tester, base64 encoder, developer utilities';
+  private readonly DEFAULT_DESCRIPTION = 'Free online developer tools. Beautify, validate and minify JSON, decode JWT, generate passwords, test regex, convert Base64 instantly.';
+  private readonly DEFAULT_KEYWORDS = 'developer tools, online formatters, free dev utilities, jwt tool, regex helper, json formatter, base64 encoder';
 
   updateMeta(config: {
     title?: string;
@@ -25,10 +26,17 @@ export class SeoService {
     noIndex?: boolean;
     schema?: any;
   }): void {
-    const title = config.title ? `${config.title} | ${this.SITE_NAME}` : this.DEFAULT_TITLE;
+    const title = config.title 
+      ? (config.title.includes(this.SITE_NAME) ? config.title : `${config.title} | ${this.SITE_NAME}`)
+      : this.DEFAULT_TITLE;
     const description = config.description || this.DEFAULT_DESCRIPTION;
     const keywords = config.keywords ? config.keywords.join(', ') : this.DEFAULT_KEYWORDS;
-    const url = `https://toolixpro.net/${config.slug || ''}`;
+    
+    let path = config.slug || '';
+    if (path.startsWith('/')) {
+      path = path.substring(1);
+    }
+    const url = path ? `${this.BASE_URL}/${path}` : `${this.BASE_URL}/`;
 
     // Set Document Title
     this.titleService.setTitle(title);
@@ -43,16 +51,16 @@ export class SeoService {
     this.metaService.updateTag({ property: 'og:description', content: description });
     this.metaService.updateTag({ property: 'og:url', content: url });
     this.metaService.updateTag({ property: 'og:type', content: 'website' });
-    this.metaService.updateTag({ property: 'og:image', content: 'https://toolixpro.net/assets/og-image.png' });
+    this.metaService.updateTag({ property: 'og:image', content: `${this.BASE_URL}/assets/og-image.png` });
     this.metaService.updateTag({ property: 'og:site_name', content: this.SITE_NAME });
 
     // Twitter Card Meta Tags
     this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.metaService.updateTag({ name: 'twitter:title', content: title });
     this.metaService.updateTag({ name: 'twitter:description', content: description });
-    this.metaService.updateTag({ name: 'twitter:image', content: 'https://toolixpro.net/assets/og-image.png' });
+    this.metaService.updateTag({ name: 'twitter:image', content: `${this.BASE_URL}/assets/og-image.png` });
 
-    // Canonical Link
+    // Canonical Link Tag
     this.updateCanonicalUrl(url);
 
     // Dynamic JSON-LD Schema
@@ -89,10 +97,10 @@ export class SeoService {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       'name': this.SITE_NAME,
-      'url': 'https://toolixpro.net',
+      'url': `${this.BASE_URL}/`,
       'potentialAction': {
         '@type': 'SearchAction',
-        'target': 'https://toolixpro.net/?q={search_term_string}',
+        'target': `${this.BASE_URL}/?q={search_term_string}`,
         'query-input': 'required name=search_term_string'
       }
     };

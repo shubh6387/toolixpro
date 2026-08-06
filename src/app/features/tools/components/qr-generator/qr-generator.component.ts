@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, ViewChild, ElementRef, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, signal, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as QRCode from 'qrcode';
@@ -60,7 +60,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 
         <div class="d-flex gap-2">
           <button class="btn btn-outline-secondary px-4 rounded-pill" (click)="resetFields()">
-            <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+            <i class="bi bi-arrow-counterclockwise me-2"></i>Reset Defaults
           </button>
         </div>
       </div>
@@ -69,13 +69,24 @@ import { ToastService } from '../../../../core/services/toast.service';
       <div class="col-lg-5 text-center d-flex flex-column align-items-center justify-content-center border-start ps-lg-4">
         <h5 class="fw-bold mb-3 small text-secondary text-uppercase align-self-start">QR Code Preview</h5>
         
-        <div class="qr-canvas-container p-3 border rounded-3 bg-white mb-4 shadow-sm d-flex align-items-center justify-content-center">
-          <canvas #qrCanvas></canvas>
+        <div class="qr-preview-box p-3 border rounded-3 mb-4 shadow-sm d-flex align-items-center justify-content-center w-100"
+             [style.background-color]="bgColor()">
+          @if (qrDataUrl()) {
+            <img [src]="qrDataUrl()" 
+                 alt="Generated QR Code" 
+                 class="img-fluid rounded" 
+                 [style.max-width.px]="qrSize() > 280 ? 280 : qrSize()" 
+                 style="height: auto; transition: all 0.2s ease;">
+          } @else {
+            <div class="spinner-border text-primary py-3" role="status">
+              <span class="visually-hidden">Generating QR...</span>
+            </div>
+          }
         </div>
 
         <div class="d-flex flex-column gap-2 w-100 max-width-250">
-          <button class="btn btn-primary w-100 rounded-pill px-4" 
-                  [disabled]="!qrText()" 
+          <button class="btn btn-primary w-100 rounded-pill px-4 py-2 fw-semibold" 
+                  [disabled]="!qrText() || !qrDataUrl()" 
                   (click)="downloadQr()">
             <i class="bi bi-download me-2"></i>Download PNG
           </button>
@@ -84,8 +95,7 @@ import { ToastService } from '../../../../core/services/toast.service';
     </div>
   `,
   styles: [`
-    .qr-canvas-container {
-      min-width: 280px;
+    .qr-preview-box {
       min-height: 280px;
       border-color: var(--border-color) !important;
       transition: all 0.3s ease;
@@ -94,28 +104,35 @@ import { ToastService } from '../../../../core/services/toast.service';
       height: 42px;
       padding: 6px;
       border-radius: 8px;
+      cursor: pointer;
     }
     .max-width-250 {
       max-width: 250px;
     }
   `]
 })
-export class QrGeneratorComponent implements OnInit {
+export class QrGeneratorComponent implements OnInit, AfterViewInit {
   private toastService = inject(ToastService);
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
 
-  @ViewChild('qrCanvas', { static: true }) qrCanvas!: ElementRef<HTMLCanvasElement>;
-
-  qrText = signal<string>('https://toolixpro.net');
+  qrText = signal<string>('https://toolixpro.vercel.app');
   errorLevel = signal<'L' | 'M' | 'Q' | 'H'>('M');
   qrSize = signal<number>(256);
   fgColor = signal<string>('#0f172a');
   bgColor = signal<string>('#ffffff');
 
+  qrDataUrl = signal<string>('');
+
   ngOnInit() {
     if (this.isBrowser) {
-      setTimeout(() => this.generateQr(), 0);
+      this.generateQr();
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.isBrowser) {
+      this.generateQr();
     }
   }
 
@@ -147,10 +164,9 @@ export class QrGeneratorComponent implements OnInit {
   generateQr() {
     if (!this.isBrowser) return;
 
-    const canvas = this.qrCanvas.nativeElement;
     const text = this.qrText() || ' ';
 
-    QRCode.toCanvas(canvas, text, {
+    QRCode.toDataURL(text, {
       width: this.qrSize(),
       errorCorrectionLevel: this.errorLevel(),
       color: {
@@ -158,30 +174,32 @@ export class QrGeneratorComponent implements OnInit {
         light: this.bgColor()
       },
       margin: 2
-    }, (error) => {
+    }, (error, url) => {
       if (error) {
-        console.error(error);
+        console.error('QR generation error:', error);
+      } else if (url) {
+        this.qrDataUrl.set(url);
       }
     });
   }
 
   downloadQr() {
-    if (!this.isBrowser) return;
-    const canvas = this.qrCanvas.nativeElement;
+    const url = this.qrDataUrl();
+    if (!url) return;
+
     try {
-      const url = canvas.toDataURL('image/png');
       const a = document.createElement('a');
       a.href = url;
       a.download = `qr-code-${Date.now()}.png`;
       a.click();
-      this.toastService.show('QR code downloaded successfully!', 'success');
+      this.toastService.show('QR code image downloaded successfully!', 'success');
     } catch (e) {
       this.toastService.show('Failed to download QR code image', 'danger');
     }
   }
 
   resetFields() {
-    this.qrText.set('https://toolixpro.net');
+    this.qrText.set('https://toolixpro.vercel.app');
     this.errorLevel.set('M');
     this.qrSize.set(256);
     this.fgColor.set('#0f172a');

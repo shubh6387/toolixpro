@@ -23,9 +23,8 @@ import { ToolRegistryService } from '../../../core/registry/tool-registry.servic
               ToolixPro is a premium developer helper suite offering fast, local-first web utilities to optimize your daily coding workflows. 100% private, free, and secure.
             </p>
             <div class="d-flex gap-3">
-              <a href="https://github.com" target="_blank" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
-              <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-              <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/shubh6387" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+              <a href="https://www.linkedin.com/in/shubham-tiwari-317456202/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
             </div>
           </div>
 

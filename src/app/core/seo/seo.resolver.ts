@@ -1,10 +1,12 @@
 import { ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { ToolRegistryService } from '../registry/tool-registry.service';
+import { BlogService } from '../services/blog.service';
 import { SeoService } from './seo.service';
 
 export const seoResolver: ResolveFn<boolean> = (route, state) => {
   const toolRegistryService = inject(ToolRegistryService);
+  const blogService = inject(BlogService);
   const seoService = inject(SeoService);
 
   const toolSlug = route.data['toolSlug'] || route.params['toolSlug'];
@@ -12,7 +14,7 @@ export const seoResolver: ResolveFn<boolean> = (route, state) => {
   if (toolSlug) {
     const tool = toolRegistryService.getToolBySlug(toolSlug);
     if (tool) {
-      const url = `https://toolixpro.net/${tool.slug}`;
+      const url = `https://toolixpro.vercel.app/${tool.slug}`;
       const softwareSchema = seoService.generateSoftwareSchema(tool.name, tool.description, url);
       const faqSchema = tool.faqs && tool.faqs.length > 0 ? seoService.generateFaqSchema(tool.faqs) : null;
       
@@ -34,6 +36,45 @@ export const seoResolver: ResolveFn<boolean> = (route, state) => {
     }
   }
 
+  // Handle Blog Post Resolution
+  const blogSlug = route.params['slug'];
+  if (blogSlug) {
+    const blog = blogService.getBlogBySlug(blogSlug);
+    if (blog) {
+      const blogUrl = `https://toolixpro.vercel.app/blogs/${blog.slug}`;
+      const articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': blog.title,
+        'description': blog.metaDescription,
+        'image': blog.featuredImage,
+        'datePublished': blog.publishedDate,
+        'author': {
+          '@type': 'Organization',
+          'name': blog.author
+        },
+        'publisher': {
+          '@type': 'Organization',
+          'name': 'ToolixPro',
+          'url': 'https://toolixpro.vercel.app/'
+        },
+        'mainEntityOfPage': {
+          '@type': 'WebPage',
+          '@id': blogUrl
+        }
+      };
+
+      seoService.updateMeta({
+        title: blog.metaTitle,
+        description: blog.metaDescription,
+        keywords: blog.keywords,
+        slug: `blogs/${blog.slug}`,
+        schema: articleSchema
+      });
+      return true;
+    }
+  }
+
   const path = route.routeConfig?.path || '';
   let title = '';
   let description = '';
@@ -42,8 +83,13 @@ export const seoResolver: ResolveFn<boolean> = (route, state) => {
   switch (path) {
     case '':
       title = '100+ Free Online Developer Tools';
-      description = 'ToolixPro provides a fast, modern suite of free online tools for developers. Format JSON, decode JWT, generate secure passwords, test regex, convert base64, and more.';
-      keywords = ['developer tools', 'online formatters', 'free dev utilities', 'jwt tool', 'regex helper'];
+      description = 'Free online developer tools. Format JSON, decode JWT, generate passwords, test regex, convert Base64, generate QR codes and UUIDs instantly.';
+      keywords = ['developer tools', 'online formatters', 'free dev utilities', 'jwt tool', 'regex helper', 'json formatter'];
+      break;
+    case 'blogs':
+      title = 'Developer Articles & Technical Tutorials';
+      description = 'Read developer guides, security tutorials, JSON tips, and tool usage articles from the ToolixPro team.';
+      keywords = ['developer blogs', 'programming tutorials', 'security articles', 'json guide', 'jwt tutorial'];
       break;
     case 'about':
       title = 'About Us';

@@ -3,18 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
-
-export interface BlogDetail {
-  title: string;
-  slug: string;
-  description: string;
-  category: string;
-  featuredImage: string;
-  author: string;
-  publishedDate: string;
-  readingTime: string;
-  content: string;
-}
+import { BlogService, BlogPost } from '../../../core/services/blog.service';
 
 @Component({
   selector: 'app-blog-details',
@@ -23,8 +12,17 @@ export interface BlogDetail {
   template: `
     <app-header></app-header>
     <section class="py-5 px-3" *ngIf="blog()">
-      <div class="container-xl" style="max-width: 800px;">
-        <!-- Header -->
+      <div class="container-xl" style="max-width: 850px;">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/blogs" class="text-decoration-none">Blogs</a></li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page" style="max-width: 300px;">{{ blog()?.title }}</li>
+          </ol>
+        </nav>
+
+        <!-- Article Header -->
         <div class="mb-4">
           <span class="badge bg-indigo-subtle text-indigo-emphasis rounded-pill px-3 py-1.5 mb-2">{{ blog()?.category }}</span>
           <h1 class="display-5 font-weight-black mb-3">{{ blog()?.title }}</h1>
@@ -32,20 +30,45 @@ export interface BlogDetail {
           <div class="d-flex align-items-center gap-3 text-secondary small py-2 border-top border-bottom">
             <span>By <strong>{{ blog()?.author }}</strong></span>
             <span>&bull;</span>
-            <span>{{ blog()?.publishedDate | date }}</span>
+            <span>{{ blog()?.publishedDate | date:'mediumDate' }}</span>
             <span>&bull;</span>
             <span>{{ blog()?.readingTime }}</span>
           </div>
         </div>
 
-        <!-- Image -->
-        <img [src]="blog()?.featuredImage" class="img-fluid rounded-4 mb-5 w-100" [alt]="blog()?.title" style="max-height: 400px; object-fit: cover;">
+        <!-- Featured Image -->
+        <img [src]="blog()?.featuredImage" class="img-fluid rounded-4 mb-5 w-100 shadow-sm" [alt]="blog()?.title" style="max-height: 420px; object-fit: cover;">
 
-        <!-- Content -->
-        <div class="blog-content text-secondary lh-lg fs-5" [innerHTML]="blog()?.content">
+        <!-- Blog Body Content -->
+        <div class="blog-content text-secondary lh-lg fs-5 mb-5" [innerHTML]="blog()?.content">
         </div>
+
+        <!-- Try Related Tool Banner Call-To-Action -->
+        @if (blog()?.toolSlug) {
+          <div class="card premium-card p-4 my-5 bg-gradient-cta">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+              <div>
+                <h3 class="h4 font-weight-bold mb-1 text-body">Ready to test this in action?</h3>
+                <p class="text-secondary mb-0">Use our free 100% client-side tool with instant browser execution and privacy.</p>
+              </div>
+              <a [routerLink]="['/' + blog()?.toolSlug]" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold flex-shrink-0">
+                Open Utility <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        }
       </div>
     </section>
+
+    <!-- Fallback 404 -->
+    <section class="py-5 text-center" *ngIf="!blog()">
+      <div class="container-xl py-5">
+        <h2 class="h3 font-weight-bold mb-3">Blog Article Not Found</h2>
+        <p class="text-secondary mb-4">The blog post you are looking for does not exist or has been moved.</p>
+        <a routerLink="/blogs" class="btn btn-primary rounded-pill px-4">Browse All Articles</a>
+      </div>
+    </section>
+
     <app-footer></app-footer>
   `,
   styles: [`
@@ -56,46 +79,25 @@ export interface BlogDetail {
       background-color: var(--badge-bg);
       color: var(--badge-text);
     }
+    .blog-content {
+      line-height: 1.8;
+    }
+    .bg-gradient-cta {
+      border-left: 4px solid var(--accent-color);
+    }
   `]
 })
 export class BlogDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  blog = signal<BlogDetail | undefined>(undefined);
+  private blogService = inject(BlogService);
+  blog = signal<BlogPost | undefined>(undefined);
 
   ngOnInit() {
-    const slug = this.route.snapshot.paramMap.get('slug');
-    if (slug === 'parsing-and-decoding-jwts-safely') {
-      this.blog.set({
-        title: 'Parsing and Decoding JWTs Safely in Client Applications',
-        slug: 'parsing-and-decoding-jwts-safely',
-        description: 'Understanding JSON Web Tokens, why client-side decoding is safe, and how to read user payloads securely.',
-        category: 'Security',
-        featuredImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&auto=format&fit=crop&q=60',
-        author: 'ToolixPro Team',
-        publishedDate: '2026-07-15T00:00:00Z',
-        readingTime: '4 min read',
-        content: `
-          <p>JSON Web Tokens (JWT) are an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.</p>
-          <p>When implementing user authentication workflows in frontend apps, developers frequently need to inspect the token's payload to extract expiration times, user profiles, or permissions list.</p>
-          <h3 class="mt-4 text-body fw-bold">Why local client-side decoding is safe</h3>
-          <p>Unlike backend validation which checks signatures using secrets, simply decoding a JWT does not require secret keys. JWTs are encoded with Base64URL, meaning anyone can read their contents. Performing decoding client-side ensures that sensitive credentials are never sent to external servers, protecting developer secrets.</p>
-        `
-      });
-    } else {
-      this.blog.set({
-        title: 'How to Validate JSON Structures and Avoid Runtime Errors',
-        slug: 'how-to-validate-json-structures',
-        description: 'A deep-dive tutorial into JSON schema validation, common syntax issues, and client-side beautification techniques.',
-        category: 'JSON Utilities',
-        featuredImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=60',
-        author: 'ToolixPro Team',
-        publishedDate: '2026-07-14T00:00:00Z',
-        readingTime: '5 min read',
-        content: `
-          <p>JSON (JavaScript Object Notation) is the backbone of modern web APIs. However, ill-formatted JSON objects can crash processes and trigger fatal runtime exceptions.</p>
-          <p>Validating JSON string schemas before execution protects systems from payload injection or parsing failures. Using standard parser try-catch blocks and visualization tools allows developers to debug API data instantly.</p>
-        `
-      });
-    }
+    this.route.params.subscribe(params => {
+      const slug = params['slug'];
+      if (slug) {
+        this.blog.set(this.blogService.getBlogBySlug(slug));
+      }
+    });
   }
 }

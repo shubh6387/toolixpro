@@ -41,6 +41,69 @@ import { ToolConfig } from '../../shared/models/tool-config.model';
                 <router-outlet></router-outlet>
               </div>
 
+              <!-- SEO Rich Content Section -->
+              @if (activeTool()?.longDescription) {
+                <div class="tool-seo-content mb-5">
+                  <div class="premium-card p-4 mb-4">
+                    <h2 class="h4 font-weight-bold mb-3">
+                      <i class="bi bi-info-circle-fill text-primary me-2"></i>About {{ activeTool()?.name }}
+                    </h2>
+                    <p class="text-secondary lh-lg mb-0 fs-6">
+                      {{ activeTool()?.longDescription }}
+                    </p>
+                  </div>
+
+                  @if (activeTool()?.keyFeatures && activeTool()!.keyFeatures!.length > 0) {
+                    <div class="premium-card p-4 mb-4">
+                      <h3 class="h5 font-weight-bold mb-3">
+                        <i class="bi bi-star-fill text-warning me-2"></i>Key Features & Capabilities
+                      </h3>
+                      <div class="row g-3">
+                        @for (feature of activeTool()?.keyFeatures; track feature) {
+                          <div class="col-md-6">
+                            <div class="d-flex align-items-start gap-2">
+                              <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-1"></i>
+                              <span class="text-secondary">{{ feature }}</span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+
+                  @if (activeTool()?.howToUse && activeTool()!.howToUse!.length > 0) {
+                    <div class="premium-card p-4 mb-4">
+                      <h3 class="h5 font-weight-bold mb-3">
+                        <i class="bi bi-card-checklist text-info me-2"></i>How to Use {{ activeTool()?.name }}
+                      </h3>
+                      <ol class="list-group list-group-numbered list-group-flush bg-transparent">
+                        @for (step of activeTool()?.howToUse; track step) {
+                          <li class="list-group-item bg-transparent text-secondary border-0 px-0 py-2">
+                            {{ step }}
+                          </li>
+                        }
+                      </ol>
+                    </div>
+                  }
+
+                  @if (activeTool()?.useCases && activeTool()!.useCases!.length > 0) {
+                    <div class="premium-card p-4 mb-4">
+                      <h3 class="h5 font-weight-bold mb-3">
+                        <i class="bi bi-lightbulb-fill text-accent me-2"></i>Common Developer Scenarios & Use Cases
+                      </h3>
+                      <ul class="list-unstyled mb-0 row g-2">
+                        @for (useCase of activeTool()?.useCases; track useCase) {
+                          <li class="col-md-6 text-secondary d-flex align-items-center gap-2">
+                            <i class="bi bi-arrow-right-short text-primary fs-4"></i>
+                            <span>{{ useCase }}</span>
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                  }
+                </div>
+              }
+
               <!-- Tool FAQs Section -->
               @if (activeTool()?.faqs && activeTool()!.faqs!.length > 0) {
                 <div class="tool-faqs-section mb-5">

@@ -15,4 +15,9 @@ export interface ToolConfig {
   metaDescription: string;
   faqs: ToolFaq[];
   popular?: boolean;
+  longDescription?: string;
+  keyFeatures?: string[];
+  howToUse?: string[];
+  useCases?: string[];
 }
+
