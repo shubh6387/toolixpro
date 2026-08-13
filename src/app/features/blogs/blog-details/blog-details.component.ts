@@ -93,6 +93,10 @@ export class BlogDetailsComponent implements OnInit {
   blog = signal<BlogPost | undefined>(undefined);
 
   ngOnInit() {
+    const initialSlug = this.route.snapshot.paramMap.get('slug') || this.route.snapshot.params['slug'];
+    if (initialSlug) {
+      this.blog.set(this.blogService.getBlogBySlug(initialSlug));
+    }
     this.route.params.subscribe(params => {
       const slug = params['slug'];
       if (slug) {
