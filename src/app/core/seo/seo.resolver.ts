@@ -16,14 +16,21 @@ export const seoResolver: ResolveFn<boolean> = (route, state) => {
     if (tool) {
       const url = `https://toolixpro.vercel.app/${tool.slug}`;
       const softwareSchema = seoService.generateSoftwareSchema(tool.name, tool.description, url);
+      const breadcrumbSchema = seoService.generateBreadcrumbSchema([
+        { name: 'Home', url: 'https://toolixpro.vercel.app/' },
+        { name: tool.category, url: 'https://toolixpro.vercel.app/' },
+        { name: tool.name, url: url }
+      ]);
       const faqSchema = tool.faqs && tool.faqs.length > 0 ? seoService.generateFaqSchema(tool.faqs) : null;
       
-      const combinedSchema = faqSchema 
-        ? {
-            '@context': 'https://schema.org',
-            '@graph': [softwareSchema, faqSchema]
-          }
-        : softwareSchema;
+      const combinedSchema = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          softwareSchema,
+          breadcrumbSchema,
+          ...(faqSchema ? [faqSchema] : [])
+        ]
+      };
 
       seoService.updateMeta({
         title: tool.metaTitle || tool.name,

@@ -3,29 +3,52 @@ import { ToolConfig } from '../../shared/models/tool-config.model';
 export const TOOL_REGISTRY: ToolConfig[] = [
   {
     slug: 'json-formatter',
-    name: 'JSON Formatter & Validator',
-    tagline: 'Beautify, validate, minify, and format JSON data instantly.',
-    description: 'A free online developer utility to format, beautify, validate, and minify JSON code. Upload a JSON file or paste your code to clean it up and check for syntax errors in real-time.',
+    name: 'JSON Formatter & Validator Online',
+    tagline: 'Free online JSON Beautifier, Validator, Pretty Printer & Minifier with real-time syntax error detection.',
+    description: 'A free online developer utility to format, beautify, validate, pretty print, and minify JSON data instantly. Upload a JSON file or paste your code to clean it up and check for syntax errors in real-time.',
     category: 'JSON Utilities',
     iconClass: 'bi-braces-asterisk',
-    keywords: ['json formatter', 'beautify json', 'minify json', 'validate json', 'json validator', 'online json formatter', 'format json online', 'json syntax checker'],
-    metaTitle: 'Free JSON Formatter Online',
-    metaDescription: 'Free JSON Formatter online. Beautify, validate and minify JSON instantly.',
+    keywords: [
+      'json formatter',
+      'json formatter online',
+      'json validator',
+      'json formatter online free',
+      'json beautifier',
+      'json beautifier online',
+      'format json online',
+      'json pretty print',
+      'json pretty printer',
+      'json validator online',
+      'json minifier',
+      'validate json online',
+      'json syntax checker',
+      'free json formatter online',
+      'online json formatter and validator',
+      'format json online free',
+      'validate json online free',
+      'beautify json online',
+      'json syntax validator online',
+      'json formatter for developers',
+      'json formatter with error detection',
+      'json formatter with line numbers'
+    ],
+    metaTitle: 'JSON Formatter & Validator Online – Free JSON Beautifier | ToolixPro',
+    metaDescription: 'Free JSON Formatter & Validator online. Beautify, validate, pretty print, and minify JSON data instantly with real-time syntax error detection. 100% free.',
     popular: true,
-    longDescription: 'The ToolixPro JSON Formatter & Validator is an essential tool for software engineers, backend developers, and data analysts working with JSON (JavaScript Object Notation). It allows you to clean unformatted JSON data into a beautifully indented, human-readable format or compact it into a minified string for optimized network transfer. Additionally, it highlights exact line numbers and syntax error positions, helping you quickly identify missing quotes, trailing commas, or bracket mismatches. Because all computations execute 100% inside your web browser via client-side JavaScript, confidential API payloads, customer records, and internal system logs remain strictly private.',
+    longDescription: 'The ToolixPro JSON Formatter & Validator is a free, 100% browser-based online developer utility built to format, clean, validate, pretty print, and minify JSON (JavaScript Object Notation) data instantly. Whether you are debugging backend REST API payloads, inspecting GraphQL query responses, or editing configuration files like package.json and tsconfig.json, raw JSON is often minified into a single dense line without indentation or line breaks. Our tool converts unformatted JSON text into a clean, human-readable structure with standard 2-space indentation. In addition to beautification, the integrated JSON Validator checks your payload against the RFC 8259 specification to detect syntax errors in real-time, providing line-level error location details so you can fix issues immediately. Because all computations execute locally inside your web browser via client-side JavaScript, confidential API payloads, passwords, customer records, and internal system logs remain strictly private.',
     keyFeatures: [
       'Real-time JSON syntax validation with instant error line indicators',
-      'One-click JSON beautification with clean indentation',
-      'One-click JSON minification to compress payload size',
-      'Local JSON file upload (.json, .txt) and direct output downloading',
+      'One-click JSON beautification with clean 2-space indentation',
+      'One-click JSON minification to compress payload size for APIs',
+      'Local JSON file upload (.json, .txt) and direct file downloading',
       '100% Browser-based client-side execution guaranteeing complete data privacy',
       'Instant copy to clipboard with state feedback'
     ],
     howToUse: [
-      'Paste your raw, unformatted, or minified JSON string into the code editor input box, or click "Upload File" to load a local JSON file.',
-      'Click the "Format / Beautify" button to format the JSON with clean indentation and syntax structure.',
+      'Paste your raw, unformatted, or minified JSON string into the code editor input box, or click "Upload" to load a local JSON file.',
+      'Click the "Beautify JSON" button to format the JSON with clean indentation and syntax structure.',
       'If your JSON contains syntax errors (like trailing commas or unquoted keys), the validation status banner will pinpoint the exact line and position of the issue.',
-      'Use the "Minify" button to remove all unnecessary whitespace for production API calls, or click "Copy" / "Download" to save your formatted code.'
+      'Use the "Minify JSON" button to remove all unnecessary whitespace for production API calls, or click "Copy" / "Download" to save your formatted code.'
     ],
     useCases: [
       'Debugging REST API response payloads and GraphQL data structures',
@@ -35,16 +58,44 @@ export const TOOL_REGISTRY: ToolConfig[] = [
     ],
     faqs: [
       {
-        question: 'Is my JSON data sent to a remote server?',
-        answer: 'No. All processing, formatting, and validation are completed client-side inside your browser. Your sensitive code, passwords, and user records never leave your local device.'
+        question: 'What is a JSON formatter?',
+        answer: 'A JSON Formatter is an online developer tool that converts raw, compressed, or unformatted JSON text into a clean, human-readable format with proper line breaks and indentation.'
       },
       {
-        question: 'Why does my JSON fail validation?',
-        answer: 'Common causes of invalid JSON include missing double quotes around property keys, trailing commas after the final array or object item, single quotes instead of double quotes, or unmatched curly/square brackets.'
+        question: 'How do I format JSON online?',
+        answer: 'Paste your raw JSON data into the input box and click Beautify JSON. The tool instantly cleans up the code and displays the formatted JSON in the output panel.'
       },
       {
-        question: 'How do I download the formatted JSON file?',
-        answer: 'Simply format or paste your JSON, then click the "Download" button to save the clean file directly to your computer.'
+        question: 'What is a JSON validator?',
+        answer: 'A JSON Validator checks your JSON data against the RFC 8259 specification to ensure it is syntactically correct and free of syntax errors like unquoted keys or trailing commas.'
+      },
+      {
+        question: 'Why is my JSON invalid?',
+        answer: 'Common causes include single quotes instead of double quotes, trailing commas after the last item in an object or array, unquoted keys, or missing closing brackets.'
+      },
+      {
+        question: 'What is JSON beautification?',
+        answer: 'JSON beautification is the process of adding proper 2-space or 4-space indentation and line breaks to dense JSON strings to improve code legibility.'
+      },
+      {
+        question: 'What is JSON minification?',
+        answer: 'JSON minification removes all unnecessary whitespace, tabs, and line breaks from a JSON string to reduce file size and optimize payload transmission for APIs.'
+      },
+      {
+        question: 'Can I format a JSON file?',
+        answer: 'Yes. Click Upload to select a .json or .txt file from your device, format or validate it, and view the formatted result instantly.'
+      },
+      {
+        question: 'Can I download formatted JSON?',
+        answer: 'Yes. After formatting or minifying your JSON, click the Download button to save the formatted .json file to your computer.'
+      },
+      {
+        question: 'Is this JSON formatter free?',
+        answer: 'Yes. The ToolixPro JSON Formatter & Validator is 100% free with no registration, no file size limits, and no hidden fees.'
+      },
+      {
+        question: 'Is my JSON data uploaded to a server?',
+        answer: 'No. All processing runs 100% client-side in your web browser using JavaScript. Your confidential API data, tokens, and records never leave your local device.'
       }
     ]
   },
