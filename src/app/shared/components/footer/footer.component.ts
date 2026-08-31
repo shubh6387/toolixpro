@@ -14,8 +14,8 @@ import { ToolRegistryService } from '../../../core/registry/tool-registry.servic
           <!-- Col 1: Brand -->
           <div class="col-lg-4 col-md-12">
             <div class="d-flex align-items-center gap-2 mb-3">
-              <div class="logo-icon d-flex align-items-center justify-content-center">
-                <i class="bi bi-cpu-fill text-white fs-5"></i>
+              <div class="logo-icon d-flex align-items-center justify-content-center overflow-hidden">
+                <img src="logo-icon.png" alt="ToolixPro Logo" class="logo-img">
               </div>
               <span class="logo-text font-weight-bold fs-5">Toolix<span class="text-accent">Pro</span></span>
             </div>
@@ -77,10 +77,16 @@ import { ToolRegistryService } from '../../../core/registry/tool-registry.servic
       border-color: var(--border-color) !important;
     }
     .logo-icon {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: transparent;
+    }
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
     }
     .text-accent {
       color: var(--accent-color);

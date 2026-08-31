@@ -15,8 +15,8 @@ import { ToolConfig } from '../../models/tool-config.model';
       <div class="container-fluid d-flex align-items-center justify-content-between p-0">
         <!-- Logo -->
         <a routerLink="/" class="navbar-brand d-flex align-items-center gap-2">
-          <div class="logo-icon d-flex align-items-center justify-content-center">
-            <i class="bi bi-cpu-fill text-white fs-5"></i>
+          <div class="logo-icon d-flex align-items-center justify-content-center overflow-hidden">
+            <img src="logo-icon.png" alt="ToolixPro Logo" class="logo-img">
           </div>
           <span class="logo-text">Toolix<span class="text-accent">Pro</span></span>
         </a>
@@ -132,10 +132,16 @@ import { ToolConfig } from '../../models/tool-config.model';
       color: var(--text-primary);
     }
     .logo-icon {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: transparent;
+    }
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
     }
     .text-accent {
       color: var(--accent-color);
